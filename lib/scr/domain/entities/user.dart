@@ -7,12 +7,12 @@ class User {
       required this.country,
       required this.favoritesMoviesId});
 
-  String id;
-  String name;
-  String surname;
-  String email;
-  String country;
-  List<String> favoritesMoviesId;
+  final String id;
+  final String name;
+  final String surname;
+  final String email;
+  final String country;
+  final List<String> favoritesMoviesId;
 
   Map<String, dynamic> toMap(User user) {
     return {
