@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/scr/data/repositories/mock_repository.dart';
+import 'package:movies_app/scr/domain/interactors/registration/registration_interactor.dart';
+import 'package:movies_app/scr/presentation/features/registration/registration_cubit.dart';
+import 'package:movies_app/scr/presentation/features/registration/registration_screen.dart';
 
 class Routes {
-  static const splashScreen = '/';
   static const login = '/login';
-  static const registration = '/registration';
+  static const registration = '/';
   static const movieTape = '/movieTape';
   static const movieDetails = '/movieDetails';
   static const favorites = '/favorites';
@@ -12,7 +16,14 @@ class Routes {
   static const search = '/search';
 }
 
-final _routes = <String, Widget Function(BuildContext)>{};
+final _routes = <String, Widget Function(BuildContext)>{
+  Routes.registration: (context) => BlocProvider<RegistrationCubit>(
+        create: (BuildContext context) =>
+            RegistrationCubit(RegistrationInteractor(MockRepository())),
+        child: const Registration(),
+      )
+};
+
 
 Route onGenerateRoute(RouteSettings settings) {
   final builder = _routes[settings.name];

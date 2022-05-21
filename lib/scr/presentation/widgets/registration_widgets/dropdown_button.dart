@@ -7,9 +7,10 @@ class DropdownButton extends StatefulWidget {
       required this.onChanged,
       required this.value})
       : super(key: key);
-  final items;
-  final onChanged;
-  final value;
+
+  final dynamic items;
+  final dynamic onChanged;
+  final dynamic value;
 
   @override
   State<DropdownButton> createState() => _DropdownButtonState();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/scr/presentation/features/registration/registration_screen.dart';
+import 'package:movies_app/scr/presentation/base/navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Registration(),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: onGenerateRoute,
+      initialRoute: Routes.registration,
     );
   }
 }
-

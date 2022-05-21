@@ -1,7 +1,8 @@
+import 'package:movies_app/scr/domain/entities/login_params.dart';
 import 'package:movies_app/scr/domain/entities/registration_params.dart';
 
 abstract class AuthRepository {
-  //Future<void> logIn(LoginParams params);
+  Future<void> logIn(LoginParams params);
 
   Future<void> register(RegistrationParams params);
 

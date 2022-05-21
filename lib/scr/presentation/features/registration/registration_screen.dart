@@ -4,6 +4,7 @@ import 'package:movies_app/scr/presentation/base/cubit_base.dart';
 import 'package:movies_app/scr/presentation/features/login/login.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_cubit.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_state.dart';
+import 'package:movies_app/scr/presentation/utils/validators.dart';
 import 'package:movies_app/scr/presentation/widgets/registration_widgets/password_form_field.dart';
 import 'package:movies_app/scr/presentation/widgets/registration_widgets/text_field_widget.dart';
 
@@ -17,6 +18,8 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState
     extends CubitState<Registration, RegistrationState, RegistrationCubit> {
+  bool _show = true;
+  bool _showRepeat = true;
   final List _county = [
     'Argentina',
     'Australia',
@@ -157,6 +160,7 @@ class _RegistrationState
   Widget _nameTextField(RegistrationState state) {
     return TextFieldWidget(
       controller: _nameController,
+      validator: validateName,
       labelText: 'Full Name',
       hintText: 'Your full name',
       suffixIcon: IconButton(
@@ -177,6 +181,7 @@ class _RegistrationState
   Widget _surnameTextField(RegistrationState state) {
     return TextFieldWidget(
       controller: _surnameController,
+      validator: validateSurname,
       labelText: 'Full Surname',
       hintText: 'Your full surname',
       suffixIcon: IconButton(
@@ -197,6 +202,7 @@ class _RegistrationState
   Widget _emailTextField(RegistrationState state) {
     return TextFieldWidget(
       controller: _emailController,
+      validator: validateEmail,
       labelText: 'Email',
       hintText: 'example@example.com',
       suffixIcon: IconButton(
@@ -233,9 +239,10 @@ class _RegistrationState
   }
 
   Widget _passwordFormField(RegistrationState state) {
-    bool _show = true;
+
     return PasswordFormField(
       controller: _passwordController,
+      validator: validatePassword,
       obscureText: _show,
       labelText: 'Password',
       helperText: 'Enter min 5 characters',
@@ -255,9 +262,10 @@ class _RegistrationState
   }
 
   Widget _confirmPasswordFormField(RegistrationState state) {
-    bool _showRepeat = true;
+
     return PasswordFormField(
       controller: _confirmPasswordController,
+      validator: validateConfirmPassword,
       obscureText: _showRepeat,
       labelText: 'Confirm Password',
       helperText: 'Repeat, please',

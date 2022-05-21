@@ -1,52 +1,52 @@
-bool validateName(String value) {
+String? validateName(String? value) {
   final _nameExp = RegExp(r'^[A-Za-zА-Яа-я]+$');
-  if (value.isEmpty) {
-    return false;
+  if (value!.isEmpty) {
+    return "Name is required";
+  } else if (!_nameExp.hasMatch(value)) {
+    return 'Please enter only letters';
   } else {
-    (!_nameExp.hasMatch(value));
-    return false;
+    return null;
   }
 }
 
-bool validateSurname(String value) {
+String? validateSurname(String? value) {
   final _nameExp = RegExp(r'^[A-Za-zА-Яа-я]+$');
-  if (value.isEmpty) {
-    return false;
+  if (value!.isEmpty) {
+    return "Surname is required";
+  } else if (!_nameExp.hasMatch(value)) {
+    return 'Please enter only letters';
   } else {
-    (!_nameExp.hasMatch(value));
-    return false;
+    return null;
   }
 }
 
-bool validateEmail(String value) {
-  if (value.isEmpty) {
-    return false;
+String? validateEmail(String? value) {
+  if (value!.isEmpty) {
+    return "Email is required";
+  } else if (!value.contains('@')) {
+    return 'Email entered incorrectly';
   } else {
-    (value.contains('@'));
-    return false;
+    return null;
   }
 }
 
-bool validateCountry(String value) {
-  (value.isEmpty);
-  return false;
-}
 
-bool validatePassword(String value) {
-  final password = value.trim();
-  if (password.length < 5) {
-    return false;
+String? validatePassword(String? value) {
+  if (value!.length < 5) {
+    return "Enter min 5 characters";
+  } else if (validatePassword(value) != validateConfirmPassword(value)) {
+    return 'Passwords do not match';
   } else {
-    return false;
+    return null;
   }
 }
 
-bool validateConfirmPassword(String value) {
-  final confirmPassword = value.trim();
-  if (confirmPassword.length < 5) {
-    return false;
+String? validateConfirmPassword(String? value) {
+  if (value!.length < 5) {
+    return "Enter min 5 characters";
+  } else if (validateConfirmPassword(value) != validatePassword(value)) {
+    return 'Passwords do not match';
   } else {
-    (confirmPassword.trim() != validatePassword(value.trim()));
-    return false;
+    return null;
   }
 }

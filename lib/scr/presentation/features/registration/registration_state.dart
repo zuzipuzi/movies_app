@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
+@immutable
 class RegistrationState extends Equatable {
   RegistrationState(
       {this.name = '',
@@ -17,20 +19,20 @@ class RegistrationState extends Equatable {
       this.allFieldsFilled = false,
       this.allFieldsValidate = false});
 
-  String name;
-  String surname;
-  String email;
-  String country;
-  String password;
-  String confirmPassword;
-  bool incorrectName;
-  bool incorrectSurname;
-  bool incorrectEmail;
-  bool incorrectCountry;
-  bool incorrectPassword;
-  bool incorrectConfirmPassword;
-  bool allFieldsFilled;
-  bool allFieldsValidate;
+  final String name;
+  final String surname;
+  final String email;
+  final String country;
+  final String password;
+  final String confirmPassword;
+  final bool incorrectName;
+  final bool incorrectSurname;
+  final bool incorrectEmail;
+  final bool incorrectCountry;
+  final bool incorrectPassword;
+  final bool incorrectConfirmPassword;
+  final bool allFieldsFilled;
+  final bool allFieldsValidate;
 
   RegistrationState copyWith({
     String? name,

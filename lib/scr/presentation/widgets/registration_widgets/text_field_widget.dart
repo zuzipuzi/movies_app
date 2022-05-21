@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatefulWidget {
   const TextFieldWidget({Key? key,
     required this.controller,
+    required this.validator,
     required this.labelText,
     required this.hintText,
     required this.suffixIcon,
@@ -10,6 +11,7 @@ class TextFieldWidget extends StatefulWidget {
       : super(key: key);
 
   final TextEditingController controller;
+  final dynamic validator;
   final String labelText;
   final String hintText;
   final IconButton suffixIcon;
@@ -24,6 +26,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   Widget build(BuildContext context) {
     return TextFormField(
         controller: widget.controller,
+        validator: widget.validator,
         decoration: InputDecoration(
         labelText: widget.labelText,
         hintText: widget.hintText,
