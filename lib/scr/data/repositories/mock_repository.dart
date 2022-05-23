@@ -5,19 +5,16 @@ import 'package:movies_app/scr/domain/repositories/auth_repository/auth_reposito
 class MockRepository extends AuthRepository {
   @override
   Future<bool> logOut() {
-    // TODO: implement logOut
     throw UnimplementedError();
   }
 
   @override
   Future<bool> register(RegistrationParams params) {
-    // TODO: implement register
     throw UnimplementedError();
   }
 
   @override
   Future<bool> userIsLogged() {
-    // TODO: implement userIsLogged
     throw UnimplementedError();
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/scr/data/repositories/mock_repository.dart';
-import 'package:movies_app/scr/domain/interactors/registration/registration_interactor.dart';
+import 'package:movies_app/scr/domain/interactors/auth/registration_interactor.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_cubit.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_screen.dart';
 

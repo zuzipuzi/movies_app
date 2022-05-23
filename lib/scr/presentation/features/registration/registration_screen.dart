@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/scr/domain/entities/registration_params.dart';
 import 'package:movies_app/scr/presentation/base/cubit_base.dart';
-import 'package:movies_app/scr/presentation/features/login/login.dart';
+import 'package:movies_app/scr/presentation/features/login/login_screen.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_cubit.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_state.dart';
 import 'package:movies_app/scr/presentation/utils/validators.dart';
@@ -10,7 +10,6 @@ import 'package:movies_app/scr/presentation/widgets/registration_widgets/text_fi
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
-  static const registration = '/registration';
 
   @override
   State<Registration> createState() => _RegistrationState();
@@ -110,7 +109,9 @@ class _RegistrationState
         centerTitle: true,
         backgroundColor: Colors.lightBlueAccent,
       ),
-      body: _buildRegisterBody(context),
+      body: observeState(builder: (context, state) {
+        return _buildRegisterBody(context);
+      }),
     );
   }
 
@@ -239,7 +240,6 @@ class _RegistrationState
   }
 
   Widget _passwordFormField(RegistrationState state) {
-
     return PasswordFormField(
       controller: _passwordController,
       validator: validatePassword,
@@ -262,7 +262,6 @@ class _RegistrationState
   }
 
   Widget _confirmPasswordFormField(RegistrationState state) {
-
     return PasswordFormField(
       controller: _confirmPasswordController,
       validator: validateConfirmPassword,

@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/scr/domain/entities/registration_params.dart';
 import 'package:movies_app/scr/domain/exception/email_is_already_used.dart';
-import 'package:movies_app/scr/domain/interactors/registration/registration_interactor.dart';
+import 'package:movies_app/scr/domain/interactors/auth/registration_interactor.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_state.dart';
 
 class RegistrationCubit extends Cubit<RegistrationState> {
-  RegistrationCubit(this._registrationInteractor) : super(RegistrationState());
+  RegistrationCubit(this._registrationInteractor) : super(const RegistrationState());
   final RegistrationInteractor _registrationInteractor;
 
   void _checkAllFieldsFilled() {
@@ -79,9 +79,7 @@ class RegistrationCubit extends Cubit<RegistrationState> {
       await _registrationInteractor.call(params);
       emit(state.copyWith(allFieldsValidate: true));
     } on EmailIsAlreadyUsedException {
-      emit(state.copyWith(incorrectEmail: true));
-    } finally {
-      emit(state.copyWith(allFieldsFilled: false));
+      emit(state.copyWith(incorrectEmail: false));
     }
   }
 }
