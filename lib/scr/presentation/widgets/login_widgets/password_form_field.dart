@@ -6,16 +6,12 @@ class PasswordFormField extends StatefulWidget {
     required this.controller,
     required this.validator,
     required this.obscureText,
-    required this.labelText,
-    required this.helperText,
     required this.suffixIcon,
   }) : super(key: key);
 
   final TextEditingController controller;
   final dynamic validator;
   final bool obscureText;
-  final String labelText;
-  final String helperText;
   final IconButton suffixIcon;
 
   @override
@@ -31,8 +27,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
       maxLength: 20,
       obscureText: widget.obscureText,
       decoration: InputDecoration(
-        labelText: widget.labelText,
-        hintText: widget.helperText,
+        labelText: 'Password',
         suffixIcon: widget.suffixIcon,
         icon: Icon(
           Icons.lock_outlined,

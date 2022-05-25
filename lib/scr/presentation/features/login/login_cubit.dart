@@ -5,7 +5,7 @@ import 'package:movies_app/scr/domain/interactors/auth/log_in_interactor.dart';
 import 'package:movies_app/scr/presentation/features/login/login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(initialState, this._loginInteractor) : super(initialState);
+  LoginCubit(this._loginInteractor) : super(const LoginState());
   final LogInInteractor _loginInteractor;
 
   void _checkAllFieldsFilled() {

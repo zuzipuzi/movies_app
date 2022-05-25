@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DropdownButton extends StatefulWidget {
-  const DropdownButton(
+class DropdownButtonCountry extends StatefulWidget {
+  const DropdownButtonCountry(
       {Key? key,
       required this.items,
       required this.onChanged,
@@ -13,10 +13,10 @@ class DropdownButton extends StatefulWidget {
   final dynamic value;
 
   @override
-  State<DropdownButton> createState() => _DropdownButtonState();
+  State<DropdownButtonCountry> createState() => _DropdownButtonCountryState();
 }
 
-class _DropdownButtonState extends State<DropdownButton> {
+class _DropdownButtonCountryState extends State<DropdownButtonCountry> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(

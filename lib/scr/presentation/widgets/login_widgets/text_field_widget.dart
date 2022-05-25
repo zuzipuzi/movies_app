@@ -1,43 +1,33 @@
 import 'package:flutter/material.dart';
 
-class PasswordFormField extends StatefulWidget {
-  const PasswordFormField({
+class TextFieldWidget extends StatefulWidget {
+  const TextFieldWidget({
     Key? key,
     required this.controller,
     required this.validator,
-    required this.obscureText,
-    required this.labelText,
-    required this.helperText,
     required this.suffixIcon,
   }) : super(key: key);
 
   final TextEditingController controller;
   final dynamic validator;
-  final bool obscureText;
-  final String labelText;
-  final String helperText;
   final IconButton suffixIcon;
 
   @override
-  State<PasswordFormField> createState() => _PasswordFormFieldState();
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
-class _PasswordFormFieldState extends State<PasswordFormField> {
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
       validator: widget.validator,
-      maxLength: 20,
-      obscureText: widget.obscureText,
       decoration: InputDecoration(
-        labelText: widget.labelText,
-        hintText: widget.helperText,
+        labelText: 'Email',
+        hintText: 'example@example.com',
         suffixIcon: widget.suffixIcon,
-        icon: Icon(
-          Icons.lock_outlined,
-          color: Colors.pinkAccent.shade100,
-        ),
+        icon: Icon(Icons.mark_email_read_outlined,
+            color: Colors.pinkAccent.shade100),
         enabledBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(30.0),

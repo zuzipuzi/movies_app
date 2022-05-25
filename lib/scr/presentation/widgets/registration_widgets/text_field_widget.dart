@@ -11,7 +11,7 @@ class TextFieldWidget extends StatefulWidget {
       : super(key: key);
 
   final TextEditingController controller;
-  final dynamic validator;
+  final String? Function(String?)  validator;
   final String labelText;
   final String hintText;
   final IconButton suffixIcon;

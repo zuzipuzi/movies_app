@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/scr/domain/entities/registration_params.dart';
 import 'package:movies_app/scr/presentation/base/cubit_base.dart';
-import 'package:movies_app/scr/presentation/features/login/login_screen.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_cubit.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_state.dart';
 import 'package:movies_app/scr/presentation/utils/validators.dart';
+import 'package:movies_app/scr/presentation/widgets/registration_widgets/dropdown_button.dart';
 import 'package:movies_app/scr/presentation/widgets/registration_widgets/password_form_field.dart';
 import 'package:movies_app/scr/presentation/widgets/registration_widgets/text_field_widget.dart';
 
@@ -17,6 +17,7 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState
     extends CubitState<Registration, RegistrationState, RegistrationCubit> {
+  final _formKey = GlobalKey<FormState>();
   bool _show = true;
   bool _showRepeat = true;
   final List _county = [
@@ -118,6 +119,7 @@ class _RegistrationState
   Widget _buildRegisterBody(BuildContext context) {
     return observeState(
       builder: (context, state) => Form(
+        key: _formKey,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [_buildTextFields(state)],
@@ -222,7 +224,7 @@ class _RegistrationState
   }
 
   Widget _countryDropdownButton(RegistrationState state) {
-    return DropdownButton(
+    return DropdownButtonCountry(
         items: _county.map((country) {
           return DropdownMenuItem(
             child: Text(country),
@@ -230,7 +232,6 @@ class _RegistrationState
           );
         }).toList(),
         onChanged: (country) {
-          print(country);
           setState(() {
             _selectCountry = country as String?;
             newUser.country = country!;
@@ -301,15 +302,10 @@ class _RegistrationState
                   child: const Text("Close")),
               TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, '/login');
                   },
                   child: const Text(
-                    "Okey",
+                    "Okay",
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ))
             ],

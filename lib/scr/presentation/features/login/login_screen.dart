@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/scr/presentation/base/cubit_base.dart';
 import 'package:movies_app/scr/presentation/features/login/login_cubit.dart';
 import 'package:movies_app/scr/presentation/features/login/login_state.dart';
+import 'package:movies_app/scr/presentation/utils/validators.dart';
+import 'package:movies_app/scr/presentation/widgets/login_widgets/login_button_widget.dart';
+import 'package:movies_app/scr/presentation/widgets/login_widgets/password_form_field.dart';
+import 'package:movies_app/scr/presentation/widgets/login_widgets/text_field_widget.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -11,6 +15,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
+  bool _show = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -41,7 +46,7 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
   Widget buildWidget(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'MoviesApp',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
@@ -60,13 +65,13 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
     return observeState(
         builder: (context, state) =>
             Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               _buildLogo(),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               _buildTextFields(),
-              SizedBox(height: 30),
-              LoginButtonWidget,
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
+              const LoginButtonWidget(),
+              const SizedBox(height: 10),
               _buildSwitchToRegistration(),
             ]));
   }
@@ -79,9 +84,54 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
     );
   }
 
-  Widget _buildTextFields(){
+  Widget _buildTextFields() {
+    return Column(
+      children: [
+        TextFieldWidget(
+          controller: _emailController,
+          validator: validateEmailLogin,
+          suffixIcon: IconButton(
+            icon: const Icon(
+              Icons.delete_forever,
+              color: Colors.red,
+            ),
+            onPressed: () {
+              _emailController.clear();
+            },
+          ),
+        ),
+        const SizedBox(height: 10),
+        PasswordFormField(
+          controller: _passwordController,
+          validator: validatePasswordLogin,
+          obscureText: _show,
+          suffixIcon: IconButton(
+            splashColor: Colors.lightBlueAccent.shade100,
+            onPressed: () {
+              setState(() {
+                _show = !_show;
+              });
+            },
+            icon: Icon(
+              _show ? Icons.visibility : Icons.visibility_off,
+              color: Colors.pinkAccent.shade100,
+            ),
+          ),
+        )
+      ],
+    );
+  }
 
-
-}
-
+  Widget _buildSwitchToRegistration() {
+    return Column(
+      children: [
+        const Text('No account?'),
+        TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/');
+            },
+            child: const Text("Create it here"))
+      ],
+    );
+  }
 }
