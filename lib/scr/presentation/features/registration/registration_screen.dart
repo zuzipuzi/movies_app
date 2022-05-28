@@ -36,12 +36,12 @@ class _RegistrationState
   ];
   String? _selectCountry;
 
-  final _nameController = TextEditingController();
-  final _surnameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _countryController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   RegistrationParams newUser = RegistrationParams(
       name: '',
@@ -146,7 +146,11 @@ class _RegistrationState
           _confirmPasswordFormField(state),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: _showDialog,
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                _showDialog;
+              }
+            },
             child: const Text('Record'),
             style: ElevatedButton.styleFrom(
               primary: Colors.lightBlueAccent,
@@ -196,7 +200,7 @@ class _RegistrationState
             _surnameController.clear();
           }),
       icon: Icon(
-        Icons.person_pin,
+        Icons.person_pin_rounded,
         color: Colors.pinkAccent.shade100,
       ),
     );

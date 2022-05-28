@@ -15,9 +15,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
+  final _formKey = GlobalKey<FormState>();
   bool _show = true;
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initParams(BuildContext context) {
@@ -85,40 +86,43 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
   }
 
   Widget _buildTextFields() {
-    return Column(
-      children: [
-        TextFieldWidget(
-          controller: _emailController,
-          validator: validateEmailLogin,
-          suffixIcon: IconButton(
-            icon: const Icon(
-              Icons.delete_forever,
-              color: Colors.red,
-            ),
-            onPressed: () {
-              _emailController.clear();
-            },
-          ),
-        ),
-        const SizedBox(height: 10),
-        PasswordFormField(
-          controller: _passwordController,
-          validator: validatePasswordLogin,
-          obscureText: _show,
-          suffixIcon: IconButton(
-            splashColor: Colors.lightBlueAccent.shade100,
-            onPressed: () {
-              setState(() {
-                _show = !_show;
-              });
-            },
-            icon: Icon(
-              _show ? Icons.visibility : Icons.visibility_off,
-              color: Colors.pinkAccent.shade100,
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFieldWidget(
+            controller: _emailController,
+            validator: validateEmailLogin,
+            suffixIcon: IconButton(
+              icon: const Icon(
+                Icons.delete_forever,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                _emailController.clear();
+              },
             ),
           ),
-        )
-      ],
+          const SizedBox(height: 10),
+          PasswordFormField(
+            controller: _passwordController,
+            validator: validatePasswordLogin,
+            obscureText: _show,
+            suffixIcon: IconButton(
+              splashColor: Colors.lightBlueAccent.shade100,
+              onPressed: () {
+                setState(() {
+                  _show = !_show;
+                });
+              },
+              icon: Icon(
+                _show ? Icons.visibility : Icons.visibility_off,
+                color: Colors.pinkAccent.shade100,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -128,7 +132,9 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
         const Text('No account?'),
         TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/');
+              if (_formKey.currentState!.validate()) {
+                Navigator.pushNamed(context, '/');
+              }
             },
             child: const Text("Create it here"))
       ],
