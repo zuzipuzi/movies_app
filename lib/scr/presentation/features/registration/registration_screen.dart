@@ -41,7 +41,16 @@ class _RegistrationState
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  final ValueKey _nameTextFieldKey = const ValueKey('nameTextFieldKey');
+  final ValueKey _surnameTextFieldKey = const ValueKey('surnameTextFieldKey');
+  final ValueKey _emailTextFieldKey = const ValueKey('emailTextFieldKey');
+  final ValueKey _countryTextFieldKey = const ValueKey('countryTextFieldKey');
+  final ValueKey _passwordTextFieldKey = const ValueKey('passwordTextFieldKey');
+  final ValueKey _confirmPasswordTextFieldKey =
+      const ValueKey('confirmPasswordTextFieldKey');
 
   RegistrationParams newUser = RegistrationParams(
       name: '',
@@ -147,8 +156,14 @@ class _RegistrationState
           const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _showDialog;
+              if (_passwordController.text != _confirmPasswordController.text) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Passwords do not match')),
+                );
+              } else if (_formKey.currentState!.validate() &&
+                  _passwordController.text == _confirmPasswordController.text) {
+                _formKey.currentState!.save();
+                _showDialog(name: _nameController.text);
               }
             },
             child: const Text('Record'),
@@ -166,6 +181,7 @@ class _RegistrationState
 
   Widget _nameTextField(RegistrationState state) {
     return TextFieldWidget(
+      key: _nameTextFieldKey,
       controller: _nameController,
       validator: validateName,
       labelText: 'Full Name',
@@ -187,6 +203,7 @@ class _RegistrationState
 
   Widget _surnameTextField(RegistrationState state) {
     return TextFieldWidget(
+      key: _surnameTextFieldKey,
       controller: _surnameController,
       validator: validateSurname,
       labelText: 'Full Surname',
@@ -208,6 +225,7 @@ class _RegistrationState
 
   Widget _emailTextField(RegistrationState state) {
     return TextFieldWidget(
+      key: _emailTextFieldKey,
       controller: _emailController,
       validator: validateEmail,
       labelText: 'Email',
@@ -229,6 +247,7 @@ class _RegistrationState
 
   Widget _countryDropdownButton(RegistrationState state) {
     return DropdownButtonCountry(
+        key: _countryTextFieldKey,
         items: _county.map((country) {
           return DropdownMenuItem(
             child: Text(country),
@@ -246,6 +265,7 @@ class _RegistrationState
 
   Widget _passwordFormField(RegistrationState state) {
     return PasswordFormField(
+      key: _passwordTextFieldKey,
       controller: _passwordController,
       validator: validatePassword,
       obscureText: _show,
@@ -268,6 +288,7 @@ class _RegistrationState
 
   Widget _confirmPasswordFormField(RegistrationState state) {
     return PasswordFormField(
+      key: _confirmPasswordTextFieldKey,
       controller: _confirmPasswordController,
       validator: validateConfirmPassword,
       obscureText: _showRepeat,
@@ -288,7 +309,7 @@ class _RegistrationState
     );
   }
 
-  void _showDialog() {
+  Future<void> _showDialog({required String name}) async {
     showDialog(
         context: context,
         builder: (context) {
@@ -297,7 +318,7 @@ class _RegistrationState
               'Registration successful',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
-            content: Text('$_nameController, confirm that form is correct'),
+            content: Text('$name, confirm that form is correct'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -306,7 +327,7 @@ class _RegistrationState
                   child: const Text("Close")),
               TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pushNamed(context, '/');
                   },
                   child: const Text(
                     "Okay",

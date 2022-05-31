@@ -9,8 +9,8 @@ import 'package:movies_app/scr/presentation/features/registration/registration_c
 import 'package:movies_app/scr/presentation/features/registration/registration_screen.dart';
 
 class Routes {
-  static const login = '/login';
-  static const registration = '/';
+  static const login = '/';
+  static const registration = '/registration';
   static const home = '/home';
   static const movieDetails = '/movieDetails';
   static const favorites = '/favorites';
@@ -25,12 +25,12 @@ final _routes = <String, Widget Function(BuildContext)>{
             RegistrationCubit(RegistrationInteractor(MockRepository())),
         child: const Registration(),
       ),
-  Routes.login:(context)=> BlocProvider<LoginCubit>(
-    create: (BuildContext context)=> LoginCubit(LogInInteractor(MockRepository())),
-    child:  const Login(),
-  ),
+  Routes.login: (context) => BlocProvider<LoginCubit>(
+        create: (BuildContext context) =>
+            LoginCubit(LogInInteractor(MockRepository())),
+        child: const Login(),
+      ),
 };
-
 
 Route onGenerateRoute(RouteSettings settings) {
   final builder = _routes[settings.name];

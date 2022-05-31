@@ -30,12 +30,9 @@ String? validateEmail(String? value) {
   }
 }
 
-
 String? validatePassword(String? value) {
   if (value!.length < 5) {
     return "Enter min 5 characters";
-  } else if (validatePassword(value) != validateConfirmPassword(value)) {
-    return 'Passwords do not match';
   } else {
     return null;
   }
@@ -44,25 +41,27 @@ String? validatePassword(String? value) {
 String? validateConfirmPassword(String? value) {
   if (value!.length < 5) {
     return "Enter min 5 characters";
-  } else if (validateConfirmPassword(value) != validatePassword(value)) {
-    return 'Passwords do not match';
-  } else {
+  }
+  // else if (validateConfirmPassword(value.trim()) != validatePassword(value.trim())) {
+  //   return 'Passwords do not match';
+  // }
+  else {
     return null;
   }
 }
 
-String? validateEmailLogin(String? value){
-  if (value != 'admin' && value!.isEmpty ){
+String? validateEmailLogin(String? value) {
+  if (value != 'admin' && value!.isEmpty) {
     return "Enter 'admin'";
-  } else if(value == 'admin'){
+  } else if (value == 'admin') {
     return null;
   }
 }
 
-String? validatePasswordLogin(String? value){
-  if (value != 'admin' && value!.isEmpty ){
+String? validatePasswordLogin(String? value) {
+  if (value != 'admin' && value!.isEmpty) {
     return "Enter 'admin'";
-  } else if(value == 'admin'){
+  } else if (value == 'admin') {
     return null;
   }
 }

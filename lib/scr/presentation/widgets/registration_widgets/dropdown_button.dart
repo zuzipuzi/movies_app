@@ -20,6 +20,7 @@ class _DropdownButtonCountryState extends State<DropdownButtonCountry> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
+      key: widget.key,
       validator: (val) {
         return val == null ? 'Please, select your country' : null;
       },

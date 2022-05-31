@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/scr/presentation/features/home/home_screen.dart';
 
 class LoginButtonWidget extends StatefulWidget {
-  const LoginButtonWidget({Key? key}) : super(key: key);
+  const LoginButtonWidget({Key? key, required this.onPressed})
+      : super(key: key);
+  final void Function()? onPressed;
 
   @override
   State<LoginButtonWidget> createState() => _LoginButtonWidgetState();
@@ -11,20 +12,15 @@ class LoginButtonWidget extends StatefulWidget {
 class _LoginButtonWidgetState extends State<LoginButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(style: ElevatedButton.styleFrom(fixedSize: const Size(120, 40), ),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        fixedSize: const Size(120, 40),
+      ),
       child: const Text(
         'Login',
         style: TextStyle(fontSize: 20),
       ),
-      onPressed: () {
-        Navigator.push(
-          //потом изменю на pushNamed как сделаю Home
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ),
-        );
-      },
+      onPressed: widget.onPressed,
     );
   }
 }

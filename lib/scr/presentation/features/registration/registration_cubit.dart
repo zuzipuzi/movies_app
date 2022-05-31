@@ -5,7 +5,8 @@ import 'package:movies_app/scr/domain/interactors/auth/registration_interactor.d
 import 'package:movies_app/scr/presentation/features/registration/registration_state.dart';
 
 class RegistrationCubit extends Cubit<RegistrationState> {
-  RegistrationCubit(this._registrationInteractor) : super(const RegistrationState());
+  RegistrationCubit(this._registrationInteractor)
+      : super(const RegistrationState());
   final RegistrationInteractor _registrationInteractor;
 
   void _checkAllFieldsFilled() {

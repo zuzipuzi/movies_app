@@ -12,7 +12,7 @@ class PasswordFormField extends StatefulWidget {
   }) : super(key: key);
 
   final TextEditingController controller;
-  final dynamic validator;
+  final String? Function(String?) validator;
   final bool obscureText;
   final String labelText;
   final String helperText;
@@ -26,6 +26,7 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: widget.key,
       controller: widget.controller,
       validator: widget.validator,
       maxLength: 20,

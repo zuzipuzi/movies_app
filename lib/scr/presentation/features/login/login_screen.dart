@@ -6,6 +6,7 @@ import 'package:movies_app/scr/presentation/utils/validators.dart';
 import 'package:movies_app/scr/presentation/widgets/login_widgets/login_button_widget.dart';
 import 'package:movies_app/scr/presentation/widgets/login_widgets/password_form_field.dart';
 import 'package:movies_app/scr/presentation/widgets/login_widgets/text_field_widget.dart';
+import 'package:movies_app/scr/presentation/features/home/home_screen.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -71,7 +72,19 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
               const SizedBox(height: 30),
               _buildTextFields(),
               const SizedBox(height: 10),
-              const LoginButtonWidget(),
+              LoginButtonWidget(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(
+                      //потом изменю на pushNamed как сделаю Home
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  }
+                },
+              ),
               const SizedBox(height: 10),
               _buildSwitchToRegistration(),
             ]));
@@ -132,9 +145,7 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
         const Text('No account?'),
         TextButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, '/');
-              }
+              Navigator.pushNamed(context, '/registration');
             },
             child: const Text("Create it here"))
       ],
