@@ -4,7 +4,7 @@ import 'package:movies_app/scr/domain/repositories/auth_repository/auth_reposito
 class CheckUserAuthStatus extends BaseNoInputInteractor<bool> {
   CheckUserAuthStatus(this.repository);
 
-  AuthRepository repository;
+  final AuthRepository repository;
 
   @override
   Future<bool> call() async {

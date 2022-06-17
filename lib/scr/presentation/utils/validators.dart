@@ -50,18 +50,3 @@ String? validateConfirmPassword(String? value) {
   }
 }
 
-String? validateEmailLogin(String? value) {
-  if (value != 'admin' && value!.isEmpty) {
-    return "Enter 'admin'";
-  } else if (value == 'admin') {
-    return null;
-  }
-}
-
-String? validatePasswordLogin(String? value) {
-  if (value != 'admin' && value!.isEmpty) {
-    return "Enter 'admin'";
-  } else if (value == 'admin') {
-    return null;
-  }
-}

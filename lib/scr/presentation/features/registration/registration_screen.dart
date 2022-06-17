@@ -5,8 +5,8 @@ import 'package:movies_app/scr/presentation/features/registration/registration_c
 import 'package:movies_app/scr/presentation/features/registration/registration_state.dart';
 import 'package:movies_app/scr/presentation/utils/validators.dart';
 import 'package:movies_app/scr/presentation/widgets/registration_widgets/dropdown_button.dart';
-import 'package:movies_app/scr/presentation/widgets/registration_widgets/password_form_field.dart';
-import 'package:movies_app/scr/presentation/widgets/registration_widgets/text_field_widget.dart';
+import 'package:movies_app/scr/presentation/widgets/password_form_field.dart';
+import 'package:movies_app/scr/presentation/widgets/text_field_widget.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);

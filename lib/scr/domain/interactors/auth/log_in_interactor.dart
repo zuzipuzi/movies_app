@@ -5,7 +5,7 @@ import 'package:movies_app/scr/domain/repositories/auth_repository/auth_reposito
 class LogInInteractor extends BaseInteractor<LoginParams, void> {
   LogInInteractor(this.repository);
 
-  AuthRepository repository;
+  final AuthRepository repository;
 
   @override
   Future<void> call(LoginParams input) async {

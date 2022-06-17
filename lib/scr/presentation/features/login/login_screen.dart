@@ -3,10 +3,10 @@ import 'package:movies_app/scr/presentation/base/cubit_base.dart';
 import 'package:movies_app/scr/presentation/features/login/login_cubit.dart';
 import 'package:movies_app/scr/presentation/features/login/login_state.dart';
 import 'package:movies_app/scr/presentation/utils/validators.dart';
-import 'package:movies_app/scr/presentation/widgets/login_widgets/login_button_widget.dart';
-import 'package:movies_app/scr/presentation/widgets/login_widgets/password_form_field.dart';
-import 'package:movies_app/scr/presentation/widgets/login_widgets/text_field_widget.dart';
+import 'package:movies_app/scr/presentation/widgets/login_button_widget.dart';
 import 'package:movies_app/scr/presentation/features/home/home_screen.dart';
+import 'package:movies_app/scr/presentation/widgets/password_form_field.dart';
+import 'package:movies_app/scr/presentation/widgets/text_field_widget.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -72,7 +72,7 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
               const SizedBox(height: 30),
               _buildTextFields(),
               const SizedBox(height: 10),
-              LoginButtonWidget(
+              ActionButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     Navigator.push(
@@ -105,7 +105,7 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
         children: [
           TextFieldWidget(
             controller: _emailController,
-            validator: validateEmailLogin,
+            validator: validateEmail,
             suffixIcon: IconButton(
               icon: const Icon(
                 Icons.delete_forever,
@@ -115,11 +115,15 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
                 _emailController.clear();
               },
             ),
+            labelText: 'Email',
+            icon: Icon(Icons.mark_email_read_outlined,
+                color: Colors.pinkAccent.shade100),
+            hintText: "example@example.com",
           ),
           const SizedBox(height: 10),
           PasswordFormField(
             controller: _passwordController,
-            validator: validatePasswordLogin,
+            validator: validatePassword,
             obscureText: _show,
             suffixIcon: IconButton(
               splashColor: Colors.lightBlueAccent.shade100,
@@ -133,6 +137,8 @@ class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
                 color: Colors.pinkAccent.shade100,
               ),
             ),
+            helperText: 'Enter min 5 characters',
+            labelText: 'Password',
           )
         ],
       ),

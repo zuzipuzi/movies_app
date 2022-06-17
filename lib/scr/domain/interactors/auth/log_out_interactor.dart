@@ -4,7 +4,7 @@ import 'package:movies_app/scr/domain/repositories/auth_repository/auth_reposito
 class LogOutInteractor extends BaseNoInputInteractor<void> {
   LogOutInteractor(this.repository);
 
-  AuthRepository repository;
+  final AuthRepository repository;
 
   @override
   Future<void> call() async {
