@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/scr/domain/entities/registration_params.dart';
 import 'package:movies_app/scr/presentation/base/cubit_base.dart';
-import 'package:movies_app/scr/presentation/features/login/login.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_cubit.dart';
 import 'package:movies_app/scr/presentation/features/registration/registration_state.dart';
 import 'package:movies_app/scr/presentation/utils/validators.dart';
-import 'package:movies_app/scr/presentation/widgets/registration_widgets/password_form_field.dart';
-import 'package:movies_app/scr/presentation/widgets/registration_widgets/text_field_widget.dart';
+import 'package:movies_app/scr/presentation/widgets/registration_widgets/dropdown_button.dart';
+import 'package:movies_app/scr/presentation/widgets/password_form_field.dart';
+import 'package:movies_app/scr/presentation/widgets/text_field_widget.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
-  static const registration = '/registration';
 
   @override
   State<Registration> createState() => _RegistrationState();
@@ -18,6 +17,7 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState
     extends CubitState<Registration, RegistrationState, RegistrationCubit> {
+  final _formKey = GlobalKey<FormState>();
   bool _show = true;
   bool _showRepeat = true;
   final List _county = [
@@ -36,12 +36,21 @@ class _RegistrationState
   ];
   String? _selectCountry;
 
-  final _nameController = TextEditingController();
-  final _surnameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _countryController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  final ValueKey _nameTextFieldKey = const ValueKey('nameTextFieldKey');
+  final ValueKey _surnameTextFieldKey = const ValueKey('surnameTextFieldKey');
+  final ValueKey _emailTextFieldKey = const ValueKey('emailTextFieldKey');
+  final ValueKey _countryTextFieldKey = const ValueKey('countryTextFieldKey');
+  final ValueKey _passwordTextFieldKey = const ValueKey('passwordTextFieldKey');
+  final ValueKey _confirmPasswordTextFieldKey =
+      const ValueKey('confirmPasswordTextFieldKey');
 
   RegistrationParams newUser = RegistrationParams(
       name: '',
@@ -110,13 +119,16 @@ class _RegistrationState
         centerTitle: true,
         backgroundColor: Colors.lightBlueAccent,
       ),
-      body: _buildRegisterBody(context),
+      body: observeState(builder: (context, state) {
+        return _buildRegisterBody(context);
+      }),
     );
   }
 
   Widget _buildRegisterBody(BuildContext context) {
     return observeState(
       builder: (context, state) => Form(
+        key: _formKey,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [_buildTextFields(state)],
@@ -143,7 +155,17 @@ class _RegistrationState
           _confirmPasswordFormField(state),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: _showDialog,
+            onPressed: () {
+              if (_passwordController.text != _confirmPasswordController.text) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Passwords do not match')),
+                );
+              } else if (_formKey.currentState!.validate() &&
+                  _passwordController.text == _confirmPasswordController.text) {
+                _formKey.currentState!.save();
+                _showDialog(name: _nameController.text);
+              }
+            },
             child: const Text('Record'),
             style: ElevatedButton.styleFrom(
               primary: Colors.lightBlueAccent,
@@ -159,6 +181,7 @@ class _RegistrationState
 
   Widget _nameTextField(RegistrationState state) {
     return TextFieldWidget(
+      key: _nameTextFieldKey,
       controller: _nameController,
       validator: validateName,
       labelText: 'Full Name',
@@ -180,6 +203,7 @@ class _RegistrationState
 
   Widget _surnameTextField(RegistrationState state) {
     return TextFieldWidget(
+      key: _surnameTextFieldKey,
       controller: _surnameController,
       validator: validateSurname,
       labelText: 'Full Surname',
@@ -193,7 +217,7 @@ class _RegistrationState
             _surnameController.clear();
           }),
       icon: Icon(
-        Icons.person_pin,
+        Icons.person_pin_rounded,
         color: Colors.pinkAccent.shade100,
       ),
     );
@@ -201,6 +225,7 @@ class _RegistrationState
 
   Widget _emailTextField(RegistrationState state) {
     return TextFieldWidget(
+      key: _emailTextFieldKey,
       controller: _emailController,
       validator: validateEmail,
       labelText: 'Email',
@@ -221,7 +246,8 @@ class _RegistrationState
   }
 
   Widget _countryDropdownButton(RegistrationState state) {
-    return DropdownButton(
+    return DropdownButtonCountry(
+        key: _countryTextFieldKey,
         items: _county.map((country) {
           return DropdownMenuItem(
             child: Text(country),
@@ -229,7 +255,6 @@ class _RegistrationState
           );
         }).toList(),
         onChanged: (country) {
-          print(country);
           setState(() {
             _selectCountry = country as String?;
             newUser.country = country!;
@@ -239,8 +264,8 @@ class _RegistrationState
   }
 
   Widget _passwordFormField(RegistrationState state) {
-
     return PasswordFormField(
+      key: _passwordTextFieldKey,
       controller: _passwordController,
       validator: validatePassword,
       obscureText: _show,
@@ -262,8 +287,8 @@ class _RegistrationState
   }
 
   Widget _confirmPasswordFormField(RegistrationState state) {
-
     return PasswordFormField(
+      key: _confirmPasswordTextFieldKey,
       controller: _confirmPasswordController,
       validator: validateConfirmPassword,
       obscureText: _showRepeat,
@@ -284,7 +309,7 @@ class _RegistrationState
     );
   }
 
-  void _showDialog() {
+  Future<void> _showDialog({required String name}) async {
     showDialog(
         context: context,
         builder: (context) {
@@ -293,7 +318,7 @@ class _RegistrationState
               'Registration successful',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
-            content: Text('$_nameController, confirm that form is correct'),
+            content: Text('$name, confirm that form is correct'),
             actions: [
               TextButton(
                   onPressed: () {
@@ -302,15 +327,10 @@ class _RegistrationState
                   child: const Text("Close")),
               TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, '/');
                   },
                   child: const Text(
-                    "Okey",
+                    "Okay",
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ))
             ],

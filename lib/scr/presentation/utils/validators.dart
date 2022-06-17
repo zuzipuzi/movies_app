@@ -10,10 +10,10 @@ String? validateName(String? value) {
 }
 
 String? validateSurname(String? value) {
-  final _nameExp = RegExp(r'^[A-Za-zА-Яа-я]+$');
+  final _surnameExp = RegExp(r'^[A-Za-zА-Яа-я]+$');
   if (value!.isEmpty) {
     return "Surname is required";
-  } else if (!_nameExp.hasMatch(value)) {
+  } else if (!_surnameExp.hasMatch(value)) {
     return 'Please enter only letters';
   } else {
     return null;
@@ -30,12 +30,9 @@ String? validateEmail(String? value) {
   }
 }
 
-
 String? validatePassword(String? value) {
   if (value!.length < 5) {
     return "Enter min 5 characters";
-  } else if (validatePassword(value) != validateConfirmPassword(value)) {
-    return 'Passwords do not match';
   } else {
     return null;
   }
@@ -44,9 +41,12 @@ String? validatePassword(String? value) {
 String? validateConfirmPassword(String? value) {
   if (value!.length < 5) {
     return "Enter min 5 characters";
-  } else if (validateConfirmPassword(value) != validatePassword(value)) {
-    return 'Passwords do not match';
-  } else {
+  }
+  // else if (validateConfirmPassword(value.trim()) != validatePassword(value.trim())) {
+  //   return 'Passwords do not match';
+  // }
+  else {
     return null;
   }
 }
+

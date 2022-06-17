@@ -5,7 +5,7 @@ import 'package:movies_app/scr/domain/repositories/auth_repository/auth_reposito
 class RegistrationInteractor extends BaseInteractor<RegistrationParams, void> {
   RegistrationInteractor(this.repository);
 
-  AuthRepository repository;
+  final AuthRepository repository;
 
   @override
   Future<void> call(RegistrationParams input) async {

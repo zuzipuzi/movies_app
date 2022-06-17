@@ -1,44 +1,39 @@
 import 'package:flutter/material.dart';
 
-class PasswordFormField extends StatefulWidget {
-  const PasswordFormField({
-    Key? key,
-    required this.controller,
-    required this.validator,
-    required this.obscureText,
-    required this.labelText,
-    required this.helperText,
-    required this.suffixIcon,
-  }) : super(key: key);
+class TextFieldWidget extends StatefulWidget {
+  const TextFieldWidget(
+      {Key? key,
+      required this.controller,
+      required this.validator,
+      required this.labelText,
+      required this.hintText,
+      required this.suffixIcon,
+      required this.icon})
+      : super(key: key);
 
   final TextEditingController controller;
-  final dynamic validator;
-  final bool obscureText;
+  final String? Function(String?) validator;
   final String labelText;
-  final String helperText;
+  final String hintText;
   final IconButton suffixIcon;
+  final Icon icon;
 
   @override
-  State<PasswordFormField> createState() => _PasswordFormFieldState();
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
-class _PasswordFormFieldState extends State<PasswordFormField> {
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
-    bool _show = true;
     return TextFormField(
+      key: widget.key,
       controller: widget.controller,
       validator: widget.validator,
-      maxLength: 20,
-      obscureText: widget.obscureText,
       decoration: InputDecoration(
         labelText: widget.labelText,
-        hintText: widget.helperText,
+        hintText: widget.hintText,
         suffixIcon: widget.suffixIcon,
-        icon: Icon(
-          Icons.lock_outlined,
-          color: Colors.pinkAccent.shade100,
-        ),
+        icon: widget.icon,
         enabledBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(30.0),

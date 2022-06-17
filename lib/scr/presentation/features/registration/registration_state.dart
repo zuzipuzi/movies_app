@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class RegistrationState extends Equatable {
-  RegistrationState(
+  const RegistrationState(
       {this.name = '',
       this.surname = '',
       this.email = '',
