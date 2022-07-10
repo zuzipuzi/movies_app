@@ -8,14 +8,14 @@ import 'package:movies_app/scr/presentation/features/home/home_screen.dart';
 import 'package:movies_app/scr/presentation/widgets/password_form_field.dart';
 import 'package:movies_app/scr/presentation/widgets/text_field_widget.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginState extends CubitState<Login, LoginState, LoginCubit> {
+class _LoginScreenState extends CubitState<LoginScreen, LoginState, LoginCubit> {
   final _formKey = GlobalKey<FormState>();
   bool _show = true;
   final TextEditingController _emailController = TextEditingController();

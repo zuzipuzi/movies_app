@@ -8,15 +8,15 @@ import 'package:movies_app/scr/presentation/widgets/registration_widgets/dropdow
 import 'package:movies_app/scr/presentation/widgets/password_form_field.dart';
 import 'package:movies_app/scr/presentation/widgets/text_field_widget.dart';
 
-class Registration extends StatefulWidget {
-  const Registration({Key? key}) : super(key: key);
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({Key? key}) : super(key: key);
 
   @override
-  State<Registration> createState() => _RegistrationState();
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
-class _RegistrationState
-    extends CubitState<Registration, RegistrationState, RegistrationCubit> {
+class _RegistrationScreenState
+    extends CubitState<RegistrationScreen, RegistrationState, RegistrationCubit> {
   final _formKey = GlobalKey<FormState>();
   bool _show = true;
   bool _showRepeat = true;

@@ -23,12 +23,12 @@ final _routes = <String, Widget Function(BuildContext)>{
   Routes.registration: (context) => BlocProvider<RegistrationCubit>(
         create: (BuildContext context) =>
             RegistrationCubit(RegistrationInteractor(MockRepository())),
-        child: const Registration(),
+        child: const RegistrationScreen(),
       ),
   Routes.login: (context) => BlocProvider<LoginCubit>(
         create: (BuildContext context) =>
             LoginCubit(LogInInteractor(MockRepository())),
-        child: const Login(),
+        child: const LoginScreen(),
       ),
 };
 
